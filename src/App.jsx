@@ -17,13 +17,23 @@ function App() {
     }
   };
 
-  const handleUpdateTodo = (key) => {
+  const handleUpdateTodo = (key, value = null) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.key === key) {
-        todo.isDone = !todo.isDone;
+        // Update the value if it is provided else update the todo completion status
+        if (value) {
+          todo.value = value;
+        } else {
+          todo.isDone = !todo.isDone;
+        }
       }
       return todo;
     });
+    setTodo(updatedTodos);
+  };
+
+  const handleDeleteTodo = (key) => {
+    const updatedTodos = todos.filter((todo) => todo.key !== key);
     setTodo(updatedTodos);
   };
 
@@ -42,9 +52,16 @@ function App() {
           }}
           onKeyUp={handleAddTodo}
         />
-        <button className="btn btn-secondary">Add Todo</button>
+
+        <button className="btn btn-secondary" onClick={handleAddTodo}>
+          Add Todo
+        </button>
       </div>
-      <TodoList data={todos} handleUpdate={handleUpdateTodo} />
+      <TodoList
+        data={todos}
+        handleUpdate={handleUpdateTodo}
+        handleDelete={handleDeleteTodo}
+      />
     </div>
   );
 }

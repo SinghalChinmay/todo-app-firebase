@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Todo from "./TodoItem";
 
-export default function TodoList({ data, handleUpdate }) {
+export default function TodoList({ data, handleUpdate, handleDelete }) {
   const [showCompleted, setShowCompleted] = useState(true);
 
   const filteredData = showCompleted
@@ -10,19 +10,20 @@ export default function TodoList({ data, handleUpdate }) {
 
   return (
     <div className="todo-list">
-      <div className="filter p-3 flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="todo-filter"
-          id="filter-todo"
-          className="checkbox checkbox-accent"
-          checked={showCompleted}
-          onChange={() => setShowCompleted(!showCompleted)}
-        />
-        <label className="label-text" htmlFor="todo-filter">
-          Show Completed Tasks
+      <div className="filter p-3 flex">
+        <label className="cursor-pointer label flex gap-2">
+          <input
+            type="checkbox"
+            name="todo-filter"
+            id="filter-todo"
+            className="checkbox checkbox-sm"
+            checked={showCompleted}
+            onChange={() => setShowCompleted(!showCompleted)}
+          />
+          <span className="label-text">Show Completed Tasks</span>
         </label>
       </div>
+
       {filteredData.map((todo) => {
         return (
           <Todo
@@ -31,6 +32,7 @@ export default function TodoList({ data, handleUpdate }) {
             key={todo.key}
             todoKey={todo.key}
             handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
           />
         );
       })}
