@@ -10,8 +10,8 @@ export default function TodoList({ data, handleUpdate, handleDelete }) {
 
   return (
     <div className="todo-list">
-      <div className="filter p-3 flex">
-        <label className="cursor-pointer label flex gap-2">
+      <div className="flex justify-center p-3 filter">
+        <label className="label flex cursor-pointer gap-2">
           <input
             type="checkbox"
             name="todo-filter"
@@ -24,18 +24,20 @@ export default function TodoList({ data, handleUpdate, handleDelete }) {
         </label>
       </div>
 
-      {filteredData.map((todo) => {
-        return (
-          <Todo
-            value={todo.value}
-            isDone={todo.isDone}
-            key={todo.key}
-            todoKey={todo.key}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-          />
-        );
-      })}
+      <div className="todos flex flex-col items-center">
+        {filteredData.map((todo) => {
+          return (
+            <Todo
+              value={todo.value}
+              isDone={todo.isDone}
+              key={todo.key}
+              todoKey={todo.key}
+              handleUpdate={handleUpdate}
+              handleDelete={handleDelete}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

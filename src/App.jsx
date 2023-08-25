@@ -39,7 +39,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className="add-todo flex p-3 gap-3">
+      <h1 className="font-bol p-3 text-center text-3xl">Todo App</h1>
+      <div className="add-todo flex flex-wrap items-center justify-center gap-3 p-3">
         <input
           type="text"
           name="new-todo"
@@ -47,6 +48,7 @@ function App() {
           className="input input-bordered input-secondary"
           placeholder="Add a new task"
           value={newTodo}
+          maxLength={35}
           onChange={(e) => {
             setNewTodo(e.target.value);
           }}
