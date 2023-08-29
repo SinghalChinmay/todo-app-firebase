@@ -13,7 +13,7 @@ export default function Todo({
   return (
     <div
       className={
-        "todo-item mt-3 flex max-w-[320px] items-center gap-2 p-3 " +
+        "todo-item m-2 flex min-w-[320px] max-w-[320px] items-center p-3 " +
         (value.trim().split(" ").length == 1 ? "break-all" : "break-words")
       }
       onMouseOver={() => setShowBtns(true)}

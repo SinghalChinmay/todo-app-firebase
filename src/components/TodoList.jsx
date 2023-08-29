@@ -24,20 +24,30 @@ export default function TodoList({ data, handleUpdate, handleDelete }) {
         </label>
       </div>
 
-      <div className="todos flex flex-col items-center">
-        {filteredData.map((todo) => {
-          return (
-            <Todo
-              value={todo.value}
-              isDone={todo.isDone}
-              key={todo.key}
-              todoKey={todo.key}
-              handleUpdate={handleUpdate}
-              handleDelete={handleDelete}
-            />
-          );
-        })}
-      </div>
+      {
+        <div className="todo-wrapper mt-2 flex flex-col items-center justify-center gap-3 p-3">
+          <div className="todos max-w-full items-center rounded-xl border-2 border-solid border-red-100 bg-gray-800 p-3">
+            {filteredData.length != 0 ? (
+              filteredData.map((todo) => {
+                return (
+                  <Todo
+                    value={todo.value}
+                    isDone={todo.isDone}
+                    key={todo.key}
+                    todoKey={todo.key}
+                    handleUpdate={handleUpdate}
+                    handleDelete={handleDelete}
+                  />
+                );
+              })
+            ) : (
+              <p className="min-w-[320px] max-w-[320px] p-3 text-center text-xl text-gray-400">
+                You&apos;re all caught up! 💐
+              </p>
+            )}
+          </div>
+        </div>
+      }
     </div>
   );
 }
