@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import Todo from "./TodoItem";
 
 export default function TodoList({ data, handleUpdate, handleDelete }) {
@@ -45,6 +47,12 @@ export default function TodoList({ data, handleUpdate, handleDelete }) {
                 You&apos;re all caught up! 💐
               </p>
             )}
+          </div>
+          <div
+            className="btn btn-error btn-sm"
+            onClick={() => signOut(auth).catch((err) => console.log(err))}
+          >
+            Sign Out
           </div>
         </div>
       }
