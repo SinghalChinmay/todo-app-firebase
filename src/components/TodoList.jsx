@@ -2,13 +2,15 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import Todo from "./TodoItem";
+import { useTodoContext } from "../context/TodoContext";
 
-export default function TodoList({ data, handleUpdate, handleDelete }) {
+export default function TodoList() {
+  const { todos } = useTodoContext();
   const [showCompleted, setShowCompleted] = useState(true);
 
   const filteredData = showCompleted
-    ? data
-    : data.filter((todo) => todo.isDone == false);
+    ? todos
+    : todos.filter((todo) => todo.isDone == false);
 
   return (
     <div className="todo-list">
@@ -35,10 +37,8 @@ export default function TodoList({ data, handleUpdate, handleDelete }) {
                   <Todo
                     value={todo.value}
                     isDone={todo.isDone}
-                    key={todo.key}
                     todoKey={todo.key}
-                    handleUpdate={handleUpdate}
-                    handleDelete={handleDelete}
+                    key={todo.key}
                   />
                 );
               })

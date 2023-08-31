@@ -1,40 +1,18 @@
 import { useState } from "react";
 import TodoList from "../components/TodoList";
+import { useTodoContext } from "../context/TodoContext";
 
 function TodoApp() {
-  const [todos, setTodo] = useState([]);
+  const { add } = useTodoContext();
   const [newTodo, setNewTodo] = useState("");
 
   const handleAddTodo = (e) => {
     if ((e.type === "keyup" && e.key === "Enter") || e.type === "click") {
       if (newTodo !== "") {
-        setTodo([
-          ...todos,
-          { value: newTodo, isDone: false, key: todos.length + 1 },
-        ]); // TODO: Don't use the length of the array for key
+        add(newTodo);
         setNewTodo("");
       }
     }
-  };
-
-  const handleUpdateTodo = (key, value = null) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.key === key) {
-        // Update the value if it is provided else update the todo completion status
-        if (value) {
-          todo.value = value;
-        } else {
-          todo.isDone = !todo.isDone;
-        }
-      }
-      return todo;
-    });
-    setTodo(updatedTodos);
-  };
-
-  const handleDeleteTodo = (key) => {
-    const updatedTodos = todos.filter((todo) => todo.key !== key);
-    setTodo(updatedTodos);
   };
 
   return (
@@ -59,11 +37,7 @@ function TodoApp() {
           Add Todo
         </button>
       </div>
-      <TodoList
-        data={todos}
-        handleUpdate={handleUpdateTodo}
-        handleDelete={handleDeleteTodo}
-      />
+      <TodoList />
     </div>
   );
 }
