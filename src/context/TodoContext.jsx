@@ -8,6 +8,7 @@ import {
   getDocs,
   deleteDoc,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -21,11 +22,21 @@ const TodoProvider = ({ children }) => {
 
   const collectionRef = collection(db, "todos");
   const [todos, setTodo] = useState([]);
+  const [fetched, hasFetched] = useState(false);
 
   useEffect(() => {
+    /*
+     * Fetch data only for the initial render.
+     * After that every operation will be done in the local state
+     * The data will be updated on the database (but obviously will not be fetched from the db again)
+     */
     const fetchData = async () => {
-      if (!loading && !error && user) {
-        const q = query(collection(db, "todos"), where("user", "==", user.uid));
+      if (!loading && !error && user && !fetched) {
+        const q = query(
+          collection(db, "todos"),
+          where("user", "==", user.uid),
+          orderBy("user", "desc"),
+        );
         try {
           const snapshot = await getDocs(q);
           const todosData = snapshot.docs.map((doc) => ({
@@ -33,6 +44,7 @@ const TodoProvider = ({ children }) => {
             ...doc.data(),
           }));
           setTodo(todosData);
+          hasFetched(true);
         } catch (fetchError) {
           console.error("Error fetching todos:", fetchError);
         }
@@ -41,7 +53,7 @@ const TodoProvider = ({ children }) => {
 
     // Execute fetchData when user is available and there are no errors
     fetchData();
-  }, [user, loading, error]);
+  }, [user, loading, error, todos, fetched]);
 
   const addTodo = (value) => {
     const todoRef = doc(collectionRef);
@@ -79,7 +91,7 @@ const TodoProvider = ({ children }) => {
         } else {
           updateDoc(doc(db, "todos", key), {
             isDone: !todo.isDone,
-          }).then(console.log("Updated todo status"));
+          });
           todo.isDone = !todo.isDone;
         }
       }

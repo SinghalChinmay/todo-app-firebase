@@ -28,34 +28,30 @@ export default function TodoList() {
         </label>
       </div>
 
-      {
-        <div className="todo-wrapper mt-2 flex flex-col items-center justify-center gap-3 p-3">
-          <div className="todos max-w-full items-center rounded-xl border-2 border-solid border-red-100 bg-gray-800 p-3">
-            {filteredData.length != 0 ? (
-              filteredData.map((todo) => {
-                return (
-                  <Todo
-                    value={todo.value}
-                    isDone={todo.isDone}
-                    todoKey={todo.key}
-                    key={todo.key}
-                  />
-                );
-              })
-            ) : (
-              <p className="min-w-[320px] max-w-[320px] p-3 text-center text-xl text-gray-400">
-                You&apos;re all caught up! 💐
-              </p>
-            )}
-          </div>
-          <div
-            className="btn btn-error btn-sm"
-            onClick={() => signOut(auth).catch((err) => console.log(err))}
-          >
-            Sign Out
-          </div>
+      <div className="todo-wrapper mt-2 flex flex-col items-center justify-center gap-3 p-3">
+        <div className="todos max-w-full items-center rounded-xl border-2 border-solid border-red-100 bg-gray-800 p-3">
+          {filteredData.length != 0 ? (
+            filteredData.map((todo) => (
+              <Todo
+                value={todo.value}
+                isDone={todo.isDone}
+                id={todo.key}
+                key={todo.key}
+              />
+            ))
+          ) : (
+            <p className="min-w-[320px] max-w-[320px] p-3 text-center text-xl text-gray-400">
+              You&apos;re all caught up! 💐
+            </p>
+          )}
         </div>
-      }
+        <div
+          className="btn btn-error btn-sm"
+          onClick={() => signOut(auth).catch((err) => console.log(err))}
+        >
+          Sign Out
+        </div>
+      </div>
     </div>
   );
 }

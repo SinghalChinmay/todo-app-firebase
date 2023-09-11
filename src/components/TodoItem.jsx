@@ -2,7 +2,7 @@ import { useState } from "react";
 import TodoEdit from "./TodoEdit";
 import { useTodoContext } from "../context/TodoContext";
 
-export default function Todo({ value, isDone, todoKey }) {
+export default function Todo({ value, isDone, id }) {
   const { update, remove } = useTodoContext();
   const [showBtns, setShowBtns] = useState(false);
 
@@ -21,7 +21,7 @@ export default function Todo({ value, isDone, todoKey }) {
           checked={isDone}
           onChange={() => {
             if (showBtns) {
-              update(todoKey);
+              update(id);
             }
           }}
           name="todo"
@@ -37,10 +37,10 @@ export default function Todo({ value, isDone, todoKey }) {
 
       {showBtns && (
         <div className="btns flex gap-2">
-          <TodoEdit todoKey={todoKey} />
+          <TodoEdit todoKey={id} />
           <button
             className="btn btn-error btn-outline btn-sm"
-            onClick={() => remove(todoKey)}
+            onClick={() => remove(id)}
           >
             <i className="fa fa-trash"></i>
           </button>

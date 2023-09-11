@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTodoContext } from "../context/TodoContext";
 
-export default function TodoEdit({ todoKey }) {
+export default function TodoEdit({ id }) {
   const { update } = useTodoContext();
   const [updated, setUpdated] = useState("");
 
@@ -31,7 +31,7 @@ export default function TodoEdit({ todoKey }) {
           <div className="modal-action">
             <button
               className="btn btn-success"
-              onClick={() => update(todoKey, updated)}
+              onClick={() => update(id, updated)}
             >
               Update
             </button>
