@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth } from "./utils/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import TodoApp from "./pages/TodoApp";
 import Welcome from "./pages/Welcome";

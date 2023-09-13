@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../utils/firebaseConfig";
 import { signOut } from "firebase/auth";
 import Todo from "./TodoItem";
 import { useTodoContext } from "../context/TodoContext";

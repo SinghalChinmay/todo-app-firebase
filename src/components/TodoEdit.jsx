@@ -31,7 +31,9 @@ export default function TodoEdit({ id }) {
           <div className="modal-action">
             <button
               className="btn btn-success"
-              onClick={() => update(id, updated)}
+              onClick={() => {
+                update(id, updated);
+              }}
             >
               Update
             </button>

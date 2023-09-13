@@ -37,7 +37,7 @@ export default function Todo({ value, isDone, id }) {
 
       {showBtns && (
         <div className="btns flex gap-2">
-          <TodoEdit todoKey={id} />
+          <TodoEdit id={id} />
           <button
             className="btn btn-error btn-outline btn-sm"
             onClick={() => remove(id)}
